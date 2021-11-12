@@ -1,4 +1,4 @@
-# Pizza-Ordering-App
+# Pizza Ordering App
 Order a pizza with this web-based application!
 
 ![screenshot](https://raw.githubusercontent.com/baxttter/Pizza-Ordering-App/main/screenshot.png)
