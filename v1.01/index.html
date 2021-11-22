@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pizza Ordering</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<style>
+
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-khtml-user-drag: none;
+	-khtml-user-select: none;
+	-moz-user-drag: none;
+	-moz-user-select: none;
+	-ms-user-drag: none;
+	-ms-user-select: none;
+	-o-user-drag: none;
+	user-drag: none;
+	user-select: none;
+	standard-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: default;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+	background-color: #FFFFFF;
+	scroll-behavior: smooth;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+.header {
+	width: 640px;
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	dfont-size: 30px;
+	margin-top: 60px;
+}
+
+.middle-area-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.question {
+	width: 640px;
+	height: 440px;
+	background-color: #F2F4F6;
+	border-radius: 11px;
+	border: 2px solid #E5E4E4;
+	margin-top: 30px;
+}
+
+.step-text {
+	font-weight: 600;
+	font-size: 16;
+	color: #5E5E5E;
+	margin-left: 27px;
+	margin-top: 21px;
+	margin-bottom: 7px;
+}
+
+.title-text {
+	font-weight: 600;
+	font-size: 33px;
+	margin-left: 27px;
+	margin-bottom: 17px;
+	word-wrap: break-word;
+}
+
+.divider {
+	height: 2px;
+	width: calc(100% - 50px);
+	margin-left: 25px;
+	background-color: #D0D0D0;
+	margin-bottom: 26px;
+}
+
+.pizza-containter {
+	width: 165px;
+	height: 110px;
+	border-radius: 11px;
+	border: 1px solid #D0D0D0;
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+	align-items: right;
+	flex-direction: column;
+	cursor: pointer;
+}
+
+.pizza-grid > input:checked + .pizza-containter {
+    border-color: #0B7AFF;
+    transition: border-color 0.1s;
+}
+
+.pizza-grid > input:checked + .pizza-containter > .pizza-title {
+	background-color: #0B7AFF;
+	border-color: #0B7AFF;
+	transition: border-color 0.1s, background-color 0.1s;
+}
+
+.pizza-grid > input:checked + .pizza-containter > .pizza-title > p {
+	color: white;
+	transition: color 0.1s;
+}
+
+.pizza-grid > input:checked + .pizza-containter > .pizza-title > p > a {
+	color: white;
+	transition: color 0.1s;
+}
+
+.pizza-image {
+	background-repeat: none;
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	cursor: pointer;
+}
+
+.pizza-title {
+	margin-left: -1px;
+	margin-right: -1px;
+	width: 165px;
+	height: 65px;
+	background-color: white;
+	border-top: 1px solid #D0D0D0;
+	border-left: 1px solid #D0D0D0;
+	border-right: 1px solid #D0D0D0;
+	padding-bottom: 1px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.pizza-grid { 
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(3, 165px);;
+	grid-column-gap: 35px;
+	grid-row-gap: 29px;
+}
+
+input { /* HIDE RADIO */
+    display: none; /* Remove input from document flow */
+}
+
+.continue-button {
+	width: 115px;
+	height: 40px;
+	border-radius: 11px;
+	background-color: #0B7AFF;
+	font-size: 16;
+	font-weight: 400;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 26px;
+	margin-left: calc(100% - 115px - 36px);
+	transition: 80ms;
+	cursor: pointer;
+}
+
+.continue-button:hover {
+	background-color: #3B94FF;
+	transition: 80ms;
+}
+
+.continue-button > p {
+	margin-top: -1px;
+	margin-left: -1px;
+	cursor: pointer;
+}
+
+.continue-button > div {
+	background-image: url('Resources/cheveron.svg');
+	background-size: cover;
+	width: 10px;
+	height: 17px;
+	margin-left: 8px;
+	cursor: pointer;
+}
+
+#first-question {
+	height: 480px;
+}
+
+</style>
+<body onload="windowLoad()">
+	<div class="middle-area-container">
+
+			<div class="header">
+				<h1 class="title" style="margin-bottom: 10px;">Order a Pizza</h1>
+				<p class="title-text" style="margin: 0; font-size: 28px; margin-bottom: 35px; color: #5E5E5E;">Created by Baxter Kemp</p>
+				<div class="divider" style="margin-left: 0px; width: 100%; height: 3px;"></div>
+			</div>
+
+			<div id="first-question" class="question">
+				<p class="step-text">Step 1</p>
+				<p class="title-text">Choose a Type of Pizza</p>
+				<div class="divider"></div>
+
+				<div class="pizza-grid">
+
+					<input type="radio" name="pizza-radio" value="cheese" id="cheese" onclick="updateArray()"/>
+					<label for="cheese" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/cheese.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Cheese Pizza<br><a class="prices">+$13.5</a></p>
+							<!--<p style="color: #5E5E5E; font-size: 13px; font-style: italic;">+ $13.5</p>-->
+						</div>
+					</label>
+					
+					<input type="radio" name="pizza-radio" value="pepperoni" id="pepperoni" onclick="updateArray()"/>
+					<label for="pepperoni" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/pepperoni.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Pepperoni Pizza<br><a class="prices">+$13.5</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="veggie" id="veggie" onclick="updateArray()"/>
+					<label for="veggie" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/veggie.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Veggie Pizza<br><a class="prices">+$14.2</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="hawaiian" id="hawaiian" onclick="updateArray()"/>
+					<label for="hawaiian" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/hawaiian.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Hawaiian Pizza<br><a class="prices">+$14.0</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="supreme" id="supreme" onclick="updateArray()"/>
+					<label for="supreme" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/supreme.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Supreme Pizza<br><a class="prices">+$14.5</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="meatlovers" id="meatlovers" onclick="updateArray()"/>
+					<label for="meatlovers" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/meatlovers.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Meatlovers Pizza<br><a class="prices">+$14.0</a></p>
+						</div>
+					</label>
+
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question1, question2)">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+	</div>
+</body>
+</html>

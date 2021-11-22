@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pizza Ordering</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<style>
+
+* {
+	margin: 0;
+	padding: 0;
+	text-decoration: none;
+	-webkit-user-drag: none;
+	-webkit-user-select: none;
+	-khtml-user-drag: none;
+	-khtml-user-select: none;
+	-moz-user-drag: none;
+	-moz-user-select: none;
+	-ms-user-drag: none;
+	-ms-user-select: none;
+	-o-user-drag: none;
+	user-drag: none;
+	user-select: none;
+	standard-user-select: none;
+	-webkit-touch-callout: none;
+	-webkit-tap-highlight-color: transparent;
+	cursor: default;
+  font-family: system-ui, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+	background-color: #FFFFFF;
+	scroll-behavior: smooth;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+dheader {
+	width: 100%;
+	height: 100px;
+	background-color: rgba(0, 0, 0, 0.1);
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	position: sticky;
+}
+
+.header {
+	width: 640px;
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	font-size: 30px;
+	margin-top: 60px;
+}
+
+h1 {
+	background-color: transparent;
+}
+
+.middle-area-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.question {
+	width: 640px;
+	height: 440px;
+	background-color: #F2F4F6;
+	border-radius: 11px;
+	border: 2px solid #E5E4E4;
+	margin-top: 30px;
+}
+
+.step-text {
+	font-weight: 600;
+	font-size: 16;
+	color: #5E5E5E;
+	margin-left: 27px;
+	margin-top: 21px;
+	margin-bottom: 7px;
+}
+
+.title-text {
+	font-weight: 600;
+	font-size: 33px;
+	margin-left: 27px;
+	margin-bottom: 17px;
+	word-wrap: break-word;
+}
+
+.divider {
+	height: 2px;
+	width: calc(100% - 50px);
+	margin-left: 25px;
+	background-color: #D0D0D0;
+	margin-bottom: 26px;
+}
+
+.pizza-containter {
+	width: 165px;
+	height: 110px;
+	border-radius: 11px;
+	border: 1px solid #D0D0D0;
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+	align-items: right;
+	flex-direction: column;
+	cursor: pointer;
+}
+
+.topping-containter {
+	width: 165px;
+	height: 130px;
+	border-radius: 11px;
+	border: 1px solid #D0D0D0;
+	display: flex;
+	justify-content: center;
+	overflow: hidden;
+	align-items: right;
+	flex-direction: column;
+	cursor: pointer;	
+}
+
+.selection-button {
+	width: 30px;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid #D0D0D0;
+	margin-left: auto;
+	margin-right: calc(15px + 7px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.selection-button-inner {
+	width: 24px;
+	height: 24px;
+	border-radius: 7px;
+	background-color: #FFFFFF;
+	transition: 0.1s;
+	cursor: pointer;
+}
+
+.pizza-grid > input:checked + .pizza-containter {
+    border-color: #0B7AFF;
+    transition: border-color 0.1s;
+}
+
+.pizza-grid > input:checked + .pizza-containter > .pizza-title {
+	background-color: #0B7AFF;
+	border-color: #0B7AFF;
+	transition: border-color 0.1s, background-color 0.1s;
+}
+
+.pizza-grid > input:checked + .pizza-containter > .pizza-title > p {
+	color: white;
+	transition: color 0.1s;
+}
+
+.pizza-grid > input:checked + .pizza-containter > .pizza-title > p > a {
+	color: white;
+	transition: color 0.1s;
+}
+
+/*.topping-grid > input:checked + .topping-containter {
+    border-color: #0B7AFF;
+    transition: border-color 0.1s;
+}*/
+
+/*.topping-grid > input:checked + .topping-containter > .topping-title {
+	background-color: #0B7AFF;
+	border-color: #0B7AFF;
+	transition: border-color 0.1s, background-color 0.1s;
+}*/
+
+/*.topping-grid > input:checked + .topping-containter > .topping-title > p {
+	color: white;
+	transition: color 0.1s;
+}*/
+
+.topping-grid > input:checked + .topping-containter > .topping-title > .selection-button > .selection-button-inner {
+	background-color: #0B7AFF;
+	transition: background-color 0.1s;
+}
+
+.pizza-image {
+	background-repeat: none;
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	cursor: pointer;
+}
+
+.pizza-title {
+	margin-left: -1px;
+	margin-right: -1px;
+	width: 165px;
+	height: 65px;
+	background-color: white;
+	border-top: 1px solid #D0D0D0;
+	border-left: 1px solid #D0D0D0;
+	border-right: 1px solid #D0D0D0;
+	padding-bottom: 1px;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.topping-title {
+	margin-left: -1px;
+	margin-right: -1px;
+	width: 165px;
+	height: 80px;
+	background-color: white;
+	border-top: 1px solid #D0D0D0;
+	border-left: 1px solid #D0D0D0;
+	border-right: 1px solid #D0D0D0;
+	padding-bottom: 1px;
+	align-items: center;
+	justify-content: left;
+	display: flex;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	padding-left: 12px;
+}
+
+.pizza-grid { 
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(3, 165px);;
+	grid-column-gap: 35px;
+	grid-row-gap: 29px;
+}
+
+.topping-grid {
+	display: grid;
+	justify-content: center;
+	grid-template-columns: repeat(3, 165px);;
+	grid-column-gap: 35px;
+	grid-row-gap: 29px;
+}
+
+input { /* HIDE RADIO */
+    display: none; /* Remove input from document flow */
+}
+
+.continue-button {
+	width: 115px;
+	height: 40px;
+	border-radius: 11px;
+	background-color: #0B7AFF;
+	font-size: 16;
+	font-weight: 400;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 26px;
+	margin-left: calc(100% - 115px - 36px);
+	transition: 80ms;
+	cursor: pointer;
+}
+
+.continue-button:hover {
+	background-color: #3B94FF;
+	transition: 80ms;
+}
+
+.continue-button > p {
+	margin-top: -1px;
+	margin-left: -1px;
+	cursor: pointer;
+}
+
+.continue-button > div {
+	background-image: url('Resources/cheveron.svg');
+	background-size: cover;
+	width: 10px;
+	height: 17px;
+	margin-left: 8px;
+	cursor: pointer;
+}
+
+#first-question {
+	height: 480px;
+}
+
+#second-question {
+	height: 295px;
+}
+
+#third-question {
+	height: 360px;
+}
+
+#fourth-question {
+	height: 295px;
+}
+
+#fifth-question, #sixth-question, #seventh-question {
+	height: 285px;
+}
+
+#order-question, #address-question {
+	height: auto;
+}
+
+
+
+/* - - - - - - - - - - - - - -*/
+/* L A Y O U T  B U T T O N S */
+/* - - - - - - - - - - - - - -*/
+
+/* Removes default radio button */
+input {
+  display: none;
+}
+
+/* The whole layout button div */
+#radios {
+  position: relative;
+  background-color: white;
+  z-index: 5;
+  width: 560px;
+  height: 65px;
+	border-radius: 16px;
+	border: 1px solid #D0D0D0;	
+  transition: 250ms;
+  flex-shrink: 0;
+  flex-grow: none;
+  cursor: pointer;
+}
+
+/* Moving background of selected radio button */
+#bckgrnd {
+  width: 183px;
+  height: 52px;
+  background-color: #0B7AFF;
+  position: absolute;
+  left: 0;
+  z-index: -1;
+  border-radius: 10px;
+  top: 6.5px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Label image for BOTH buttons */
+.layoutBtns {
+  margin: -2px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  width: calc(100% / 3 );
+  height: 65px;
+  transform: translateX(2px);
+  background-repeat: no-repeat;
+  display: inline-block;
+  cursor: pointer;
+}
+
+
+/* Moves background to left if left side is clicked */
+#thin:checked ~ #bckgrnd {
+  transform: translateX(6px);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Moves background to right if right side is clicked */
+#thick:checked ~ #bckgrnd {
+  transform: translateX(189px);
+  transition: transform 0.2s ease-in-out;
+}
+
+#crispy:checked ~ #bckgrnd {
+  transform: translateX(371px);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* show that user is hovering over radios button */
+#radidos:hover {
+  transition: 300ms;
+
+}
+
+.radios-container {
+	display: flex;
+	justify-content: center;
+}
+
+.lable-container {
+	text-align: center;
+	margin-top: 12px;
+	font-size: 20px;
+	font-weight: 450;
+	transition: 280ms;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+.lable-container > p {
+	cursor: pointer;
+}
+
+.prices {
+	cursor: pointer;
+	color: #5E5E5E;
+	font-size: 13px;
+	font-style: italic;
+}
+
+#radios > input:checked + label > div {
+  transition: 120ms;
+  transition-delay: 50ms;
+  color: white;
+}
+
+#radios > input:checked + label > div > p > a {
+  transition: 120ms;
+  transition-delay: 50ms;
+  color: white;
+}
+
+#radios > label {
+	cursor: pointer;
+}
+
+.quantity-number {
+	font-size: 42px;
+	font-weight: bold;
+	transition: 280ms;
+}
+
+.increment-number {
+  width: 179px;
+  height: 52px;
+  border-radius: 10px;
+  background-color: #0B7AFF;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+}
+
+.increment-number > p {
+	cursor: pointer;
+}
+
+.counter-container {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	grid-template-columns: repeat(3, calc(100% / 3 ));
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+  background-color: white;
+  z-index: 5;
+  width: 560px;
+  height: 65px;
+	border-radius: 16px;
+	border: 1px solid #D0D0D0;	
+  transition: 250ms;
+}
+
+.counter-container-container {
+	display: flex;
+	justify-content: center;
+}
+
+.increment-number:active {
+	opacity: 0.8;
+}
+
+.text-container {
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	text-align: center;
+  background-color: white;
+  width: 560px;
+  height: 55px;
+	border-radius: 16px;
+	border: 1px solid #D0D0D0;	
+  transition: 250ms;
+}
+
+.textarea {
+	resize: none;
+	white-space: nowrap;
+	overflow-x: scroll;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 32px;
+	vertical-align: center;
+	background-color: transparent;
+	border-radius: 15px;
+	font-weight: 600;
+	padding-left: 17px;
+	padding-right: 17px;
+	border: none;
+	height: 55px;
+	width: calc(100%);
+	font-size: 25px;
+  user-select: all;
+  -webkit-user-select: text;
+  -webkit-user-select: all;
+  -moz-user-select: all;
+  -ms-user-select: all;
+  cursor: text;
+}
+
+.textarea:focus, #time:focus {
+	outline: none;
+  border: none;
+  -webkit-appearance:none; 
+}
+
+#time {
+	display: flex;
+	width: calc(100%);
+	font-size: 25px;
+	border: none;
+	font-weight: 600;
+	padding-left: 17px;
+	padding-right: 13px;
+	cursor: text;
+	height: 55px;
+	border-radius: 15px;
+}
+
+#place-order-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	color: white;
+	background-color: #0B7AFF;
+	width: 640px;
+	margin-top: 30px;
+	height: 80px;
+	border-radius: 11px;
+	font-size: 28px;
+	font-weight: 600;
+	transition: 0.1s;
+	cursor: pointer;
+}
+
+#place-order-button > p {
+	cursor: pointer;
+}
+
+#place-order-button:hover {
+	opacity: 0.8;
+	transition: 0.1s;
+}
+table {
+	margin-top: 10px;
+  border-collapse: collapse;
+  width: 100%;
+  overflow-x: scroll;
+  table-layout: fixed;
+  font-size: 13px;
+}
+td, th {
+	border:1px solid black;
+	margin: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: auto;
+	scrollbar-gutter: stable;
+}
+
+td {
+	overflow-x: auto;
+	padding-left: 4px;
+}
+
+#table-container {
+	width: 640px;
+}
+
+</style>
+<body onload="windowLoad()">
+	<div class="middle-area-container">
+
+			<div class="header">
+				<h1 class="title" style="margin-bottom: 10px;">Order a Pizza</h1>
+				<p class="title-text" style="margin: 0; font-size: 28px; margin-bottom: 35px; color: #5E5E5E;">Created by Baxter Kemp</p>
+				<div class="divider" style="margin-left: 0px; width: 100%; height: 3px;"></div>
+			</div>
+
+			<div id="first-question" class="question">
+				<p class="step-text">Step 1</p>
+				<p class="title-text">Choose a Type of Pizza</p>
+				<div class="divider"></div>
+
+				<div class="pizza-grid">
+
+					<input type="radio" name="pizza-radio" value="cheese" id="cheese" onclick="updateArray()"/>
+					<label for="cheese" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/cheese.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Cheese Pizza<br><a class="prices">+$13.5</a></p>
+							<!--<p style="color: #5E5E5E; font-size: 13px; font-style: italic;">+ $13.5</p>-->
+						</div>
+					</label>
+					
+					<input type="radio" name="pizza-radio" value="pepperoni" id="pepperoni" onclick="updateArray()"/>
+					<label for="pepperoni" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/pepperoni.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Pepperoni Pizza<br><a class="prices">+$13.5</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="veggie" id="veggie" onclick="updateArray()"/>
+					<label for="veggie" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/veggie.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Veggie Pizza<br><a class="prices">+$14.2</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="hawaiian" id="hawaiian" onclick="updateArray()"/>
+					<label for="hawaiian" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/hawaiian.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Hawaiian Pizza<br><a class="prices">+$14.0</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="supreme" id="supreme" onclick="updateArray()"/>
+					<label for="supreme" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/supreme.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Supreme Pizza<br><a class="prices">+$14.5</a></p>
+						</div>
+					</label>
+
+					<input type="radio" name="pizza-radio" value="meatlovers" id="meatlovers" onclick="updateArray()"/>
+					<label for="meatlovers" class="pizza-containter">
+						<div class="pizza-image" style="background-image: url('Resources/meatlovers.jpg');"></div>
+						<div class="pizza-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: center;">Meatlovers Pizza<br><a class="prices">+$14.0</a></p>
+						</div>
+					</label>
+
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question1, question2)">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+
+
+			<div class="question" id="second-question">
+				<p class="step-text">Step 2</p>
+				<p class="title-text">Select Pizza Base</p>
+				<div class="divider"></div>
+
+				<div class="radios-container">
+					<div id="radios">
+						<input id="thin" type="radio" name="pizza-size" value="thin"  onclick="updateArray()" checked/>
+						<label for="thin" class="layoutBtns thin">
+							<div class="lable-container">
+								<p>Thin<br><a class="prices" style="transition: 280ms;">+$0.0</a></p>
+							</div>
+						</label>
+
+						<input id="thick" type="radio" name="pizza-size" value="thick" onclick="updateArray()"/>
+						<label for="thick" class="layoutBtns thick">
+							<div class="lable-container">
+								<p>Thick<br><a class="prices" style="transition: 280ms;">+$0.5</a></p>
+							</div>
+						</label>
+
+						<input id="crispy" type="radio" name="pizza-size" value="crispy" onclick="updateArray()"/>
+						<label for="crispy" class="layoutBtns crispy">
+							<div class="lable-container">
+								<p>Crispy<br><a class="prices" style="transition: 280ms;">+$1.0</a></p>
+							</div>
+						</label>
+						<div id="bckgrnd"></div>
+
+					</div>
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question2, question3)">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+
+			<div id="third-question" class="question">
+				<p class="step-text">Step 3</p>
+				<p class="title-text">Add Extra Toppings</p>
+				<div class="divider"></div>
+
+				<div class="topping-grid">
+
+					<input type="checkbox" name="topping-radio" value="anchovies" id="anchovies" onclick="updateArray()"/>
+					<label for="anchovies" class="topping-containter">
+						<div class="pizza-image" style="background-image: url('Resources/anchovies.jpg');"></div>
+						<div class="topping-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: left;">Anchovies<br><a class="prices">+$0.3</a></p>
+							<div class="selection-button">
+								<div class="selection-button-inner"></div>
+							</div>
+						</div>
+					</label>
+					
+					<input type="checkbox" name="topping-radio" value="parmesan" id="parmesan" onclick="updateArray()"/>
+					<label for="parmesan" class="topping-containter">
+						<div class="pizza-image" style="background-image: url('Resources/parmesan.jpg');"></div>
+						<div class="topping-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: left;">Parmesan<br><a class="prices">+$1.3</a></p>
+							<div class="selection-button">
+								<div class="selection-button-inner"></div>
+							</div>
+						</div>
+					</label>
+
+					<input type="checkbox" name="topping-radio" value="olives" id="olives" onclick="updateArray()"/>
+					<label for="olives" class="topping-containter">
+						<div class="pizza-image" style="background-image: url('Resources/olives.png');"></div>
+						<div class="topping-title">
+							<p style="padding-top: 1px; cursor: pointer; text-align: left;">Olives<br><a class="prices">+$0.4</a></p>
+							<div class="selection-button">
+								<div class="selection-button-inner"></div>
+							</div>
+						</div>
+					</label>
+
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question3, question4)">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+
+
+			<div id="fourth-question" class="question">
+				<p class="step-text">Step 4</p>
+				<p class="title-text">Select a Quantity</p>
+				<div class="divider"></div>
+
+				<div class="counter-container-container">
+					<div class="counter-container">
+						<input id="minus" type="button" onclick="decreaseNumber(); updateArray();"/>
+						<label for="minus" class="quantity-number">
+							<div style="margin-left: 7px; "class="increment-number">
+								<p style="transform: translateY(-4px);">-</p>
+							</div>
+						</label>
+
+						<p id="current-number" class="quantity-number">1</p>
+
+						<input id="plus" type="button" onclick="increaseNumber(); updateArray();"/>
+						<label for="plus" class="quantity-number">
+							<div class="increment-number">
+								<p style="transform: translateY(-4px);">+</p>
+							</div>
+						</label>
+					</div>
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question4, question5)">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+
+			<div id="fifth-question" class="question">
+				<p class="step-text">Step 5</p>
+				<p class="title-text" id="step-5-title">Enter an Name</p>
+				<div class="divider"></div>
+
+				<div class="counter-container-container">
+					<div class="text-container">
+						<input type="text" placeholder="Enter a Name..." name="name" rows="1" class="textarea" maxlength="40" id="name" onfocusout="textVerify(question5); updateArray();"></input>
+					</div>
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question5, question6); updateArray();">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+
+			<div id="sixth-question" class="question">
+				<p class="step-text">Step 6</p>
+				<p class="title-text">Enter the Delivery Address</p>
+				<div class="divider"></div>
+
+				<div class="counter-container-container">
+					<div class="text-container">
+						<input type="text" placeholder="Enter an Address..." name="address" rows="1" maxlength="40" class="textarea" id="address" onfocusout="textVerify(question6); updateArray();"></input>
+					</div>
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question6, question7); updateArray();">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+
+			<div id="seventh-question" class="question">
+				<p class="step-text">Step 7</p>
+				<p class="title-text">Enter the Delivery Time</p>
+				<div class="divider"></div>
+
+				<div class="counter-container-container">
+					<div class="text-container">
+						<input type="datetime-local" id="time" onfocusout="textVerify(question7); updateArray();"/>
+					</div>
+				</div>
+
+				<div class="continue-button" onclick="continueVerify(question7, questionOrder); updateArray();">
+					<p>Continue</p>
+					<div></div>
+				</div>
+			</div>
+
+			<div class="question" id="order-question">
+				<p class="step-text">Finishing Up</p>
+				<div style="display: flex;">
+					<p class="title-text">Final Order</p>
+					<p style="margin-left: auto; margin-right: 25px; font-size: 40px; font-weight: 600;" id="final-price">$0.00</p>
+				</div>
+				<div class="divider"></div>
+
+				<p class="title-text" id="order-placeholder-text"style="color: gray; padding-left: 10px; padding-bottom: 20px;"></p>
+
+			</div>
+
+			<div class="question" id="address-question">
+				<p class="step-text">Finishing Up</p>
+				<p class="title-text">Delivery Details</p>
+				<div class="divider"></div>
+
+				<p class="title-text" id="address-placeholder-text" style="color: gray; padding-left: 10px; padding-bottom: 20px;"></p>
+
+			</div>
+
+			<div id="place-order-button" onclick="addOrder();">
+				<p>Place Order</p>
+			</div>
+
+			<div id="table-container">
+				<p class="title-text" style="padding: 0; margin: 0; padding-top: 30px;">Order List</p>
+				<input style="display: block; padding: 10px; margin-top: 15px; width: 200px;" type="text" id="search" placeholder="Search Orders... (Case Sensative)" name="table-search"></input>
+				<table style="margin-bottom: 300px;" id="table">
+						  <tr>
+						  	<th style="width: 33px;"> </th>
+						    <th>Name</th>
+						    <th>Address</th>
+						    <th>Time</th>
+						    <th>Type</th>
+						    <th style="width: 33px;">#</th>
+						    <th style="width: 80px;">Size</th>
+						    <th>Toppings</th>
+						  </tr>
+						  <tr id="placeholder-cell">
+						  	<td colspan="8" style="padding: 20px; text-align: center;">Please Place an Order.</td>
+						 	</tr>
+					</table>
+				</div>
+	</div>
+</body>
+<script>
+
+var question1 = document.getElementById('first-question');
+var question2 = document.getElementById('second-question');
+var question3 = document.getElementById('third-question');
+var question4 = document.getElementById('fourth-question');
+var question5 = document.getElementById('fifth-question');
+var question6 = document.getElementById('sixth-question');
+var question7 = document.getElementById('seventh-question');
+var questionOrder = document.getElementById('order-question');
+var questionAddress = document.getElementById('address-question');
+var hiddenQuestions = [question2, question3, question4, question5, question6, question7, questionOrder, questionAddress];
+
+window.onload = function windowLoad() {
+	scroll(0, 0);
+	
+	var placeholderText = document.getElementById('order-placeholder-text');
+	placeholderText.innerHTML = ("No order created. \n ");
+
+	var addressplaceholderText = document.getElementById('address-placeholder-text');
+	addressplaceholderText.innerHTML = ("No Address Provided. \n ");
+
+	for (i = 0; i < 8; i++) {
+		hiddenQuestions[i].style.opacity = 0.4;
+		hiddenQuestions[i].style.pointerEvents = "none";
+	}
+}
+
+function addOrder() {
+	scroll(0, 9999);
+	var pizzaType = document.querySelector('input[name="pizza-radio"]:checked').value;
+	var pizzaSize = document.querySelector('input[name="pizza-size"]:checked').value;
+	var pizzaToppings = document.querySelectorAll('input[name="topping-radio"]:checked');
+	var currentNumber = document.getElementById('current-number').textContent;
+	var name = document.getElementById('name').value;
+	var address = document.getElementById('address').value;
+	var time = document.getElementById('time').value;	
+	var table = document.getElementById('table');
+	var placeholder = document.getElementById('placeholder-cell');
+	var row = table.insertRow(-1);
+
+	if (table.rows.length == 13) {
+		alert('Maximum number of orders reached!');
+	} else {
+
+		// Remove Placeholder Cell
+		if (placeholder.cells[0]) {
+			placeholder.deleteCell(0);
+		}
+		// Order Number
+		row.insertCell(0).innerHTML = table.rows.length - 2;
+		// Name
+		row.insertCell(1).innerHTML = name;
+		// Address
+		row.insertCell(2).innerHTML = address;
+		// Time
+		row.insertCell(3).innerHTML = time;
+		// Type
+		row.insertCell(4).innerHTML = capitalizeFirstLetter(pizzaType);
+		// Quantity
+		row.insertCell(5).innerHTML = currentNumber;
+		// Size
+		row.insertCell(6).innerHTML = capitalizeFirstLetter(pizzaSize);
+		// Toppings
+		var pizzaToppingsValue = [];
+
+		for (j = 0; j < pizzaToppings.length; j++) {
+			if (pizzaToppings[j].value != null) {
+				pizzaToppingsValue.push(" " + capitalizeFirstLetter(pizzaToppings[j].value));
+			} else {
+				pizzaToppingsValue.push("null")
+			};
+		};
+		var thing = row.insertCell(7);
+		/*thing.innerHTML = "";
+		thing.tag = "toppings-cell";*/
+		for (i = 0; i < pizzaToppingsValue.length; i++) {
+			thing.innerHTML += ("&#8226; " + pizzaToppingsValue[i] + "</br>");
+		}
+	}
+}
+
+
+
+function textVerify(question) {
+	if (question == question5) {
+		var name = document.getElementById('name');
+		var nameValue;
+		if (name != null) {
+			nameValue = name.value;
+		} else {
+			nameValue = "null";
+		}
+		if (nameValue == "" || hasLetters(nameValue) == false) {
+			alert('Please Enter a Name');
+		}
+	} else if (question == question6) {
+		var address = document.getElementById('address');
+		var addressValue;
+		if (address != null) {
+			addressValue = address.value;
+		} else {
+			addressValue = "null";
+		}
+		if (addressValue == "" || hasLetters(addressValue) == false) {
+			alert('Please Enter a Valid Address.');
+		}
+	} else if (question == question7) {
+		var time = document.getElementById('time').value;
+		if (time == "") {
+			alert('Please Enter a Time. \nMake sure every field is completed.');
+		}
+	}
+}
+
+function increaseNumber() {
+	var currentNumber = document.getElementById('current-number')
+	var currentNumberString = currentNumber.textContent;
+	var currentNumberInt = parseInt(currentNumberString);
+	var currentNumberFinal;
+	if (currentNumberInt < 10) {
+		currentNumberFinal = currentNumberInt + 1;
+	} else {
+		currentNumberFinal = currentNumberInt;
+	}
+	currentNumber.innerHTML = currentNumberFinal.toString();
+	console.log(currentNumberFinal);
+}
+
+function decreaseNumber() {
+	var currentNumber = document.getElementById('current-number')
+	var currentNumberString = currentNumber.textContent;
+	var currentNumberInt = parseInt(currentNumberString);
+	var currentNumberFinal;
+	if (currentNumberInt > 1) {
+		currentNumberFinal = currentNumberInt - 1;
+	} else {
+		currentNumberFinal = currentNumberInt;
+	}
+	currentNumber.innerHTML = currentNumberFinal.toString();
+	console.log(currentNumberFinal);
+}
+
+function continueVerify(currentQuestion, upcomingQuestion) {
+
+	if (currentQuestion == question1) {
+		var pizzaType = document.querySelectorAll('input[name="pizza-radio"]:checked');
+		if (!(pizzaType.length > 0)) {
+			alert("Please Select a Pizza Type.");
+		} else {
+			nextQuestion(upcomingQuestion);
+			scroll(0, 530);
+		}
+	} else if (currentQuestion == question2) {
+		nextQuestion(upcomingQuestion);
+		scroll(0, 900);
+	} else if (currentQuestion == question3) {
+		nextQuestion(upcomingQuestion);
+		scroll(0, 1260);
+	} else if (currentQuestion == question4) {
+		nextQuestion(upcomingQuestion);
+		scroll(0, 1580);
+	} else if (currentQuestion == question5) {
+		var name = document.getElementById('name');
+		var nameValue;
+		if (name != null) {
+			nameValue = name.value;
+		} else {
+			nameValue = "null";
+		}
+		if (nameValue == "" || hasLetters(nameValue) == false) {
+			alert('Please Enter a Name');
+		} else {
+			nextQuestion(upcomingQuestion);
+			scroll(0, 1900);
+		}
+	} else if (currentQuestion == question6) {
+		var address = document.getElementById('address');
+		var addressValue;
+		if (address != null) {
+			addressValue = address.value;
+		} else {
+			addressValue = "null";
+		}
+		if (addressValue == "" || hasLetters(addressValue) == false) {
+			alert('Please Enter a Valid Address.');
+		} else {
+			nextQuestion(upcomingQuestion);
+			scroll(0, 2210);
+		}
+	} else if (currentQuestion == question7) {
+		var time = document.getElementById('time').value;
+		if (time == "") {
+			alert('Please Enter a Time. \nMake sure every field is completed.');
+		} else {
+			nextQuestion(upcomingQuestion);
+			nextQuestion(questionAddress);
+			scroll(0, 2725);
+		}
+	}
+}
+
+function nextQuestion(question) {
+	for (i = 0; i < 8; i++) {
+		if (hiddenQuestions[i] == question) {
+			question.style.opacity = 1;
+			question.style.pointerEvents = "all";
+		}
+	}
+}
+
+function updateArray() {
+
+// --------------- Q U E S T I O N   1 --------------- //
+
+	// Get Radio Value
+	var pizzaType = document.querySelector('input[name="pizza-radio"]:checked');
+	var pizzaTypeValue;
+
+	// Check Radio if nothing is choosen
+	if (pizzaType != null) {
+		pizzaTypeValue = pizzaType.value;
+	} else {
+		pizzaTypeValue = "null";
+	}
+
+
+
+
+
+
+// --------------- Q U E S T I O N   2 --------------- //
+
+	// Get Radio Value
+	var pizzaSize = document.querySelector('input[name="pizza-size"]:checked');
+	var pizzaSizeValue;
+
+	// Check Radio if nothing is choosen
+	if (pizzaSize != null) {
+		pizzaSizeValue = pizzaSize.value;
+	} else {
+		pizzaSizeValue = "null";
+	}
+
+
+
+
+
+
+// --------------- Q U E S T I O N   3 --------------- //
+
+	// Get Radio Value
+	var pizzaToppings = document.querySelectorAll('input[name="topping-radio"]:checked');
+	var pizzaToppingsValue = [];
+
+	for (j = 0; j < pizzaToppings.length; j++) {
+		if (pizzaToppings[j].value != null) {
+			pizzaToppingsValue.push(pizzaToppings[j].value);
+		} else {
+			pizzaToppingsValue.push("null")
+		};
+	};
+
+//" " + capitalizeFirstLetter(pizzaToppings[j].value)
+
+
+
+
+
+
+// --------------- Q U E S T I O N   4 --------------- //
+
+	// Get Quanitiy Value
+	var currentNumber = document.getElementById('current-number').textContent;
+	var currentNumberInt = parseInt(currentNumber);
+	var currentNumberString;
+	var pizzaMultiple;
+
+	if (currentNumberInt == 1) {
+		currentNumberString = "";
+		pizzaMultiple = " Pizza";
+	} else {
+		currentNumberString = "x" + currentNumberInt;
+		pizzaMultiple = " Pizzas";
+	}
+
+
+
+
+
+
+// --------------- Q U E S T I O N   5, 6, 7 --------------- //
+
+	// Get Quanitiy Value
+	var name = document.getElementById('name');
+	var nameValue;
+
+	if (name != null) {
+		nameValue = name.value;
+	} else {
+		nameValue = "null";
+	}
+
+	if (nameValue == "" || hasLetters(nameValue) == false) {
+			nameValue = "No Name Given";
+	}
+
+
+
+
+
+
+	var address = document.getElementById('address');
+	var addressValue;
+
+	if (address != null) {
+		addressValue = address.value;
+	} else {
+		addressValue = "null";
+	}
+
+	if (addressValue == "" || hasLetters(addressValue) == false) {
+			addressValue = "No Address Given";
+	}
+
+
+
+
+
+
+	var time = document.getElementById('time');
+	var timeValue;
+
+	if (time != null) {
+		timeValue = time.value;
+	} else {
+		timeValue = "null";
+	}
+
+	if (timeValue == "") {
+		timeValue = "No Time Choosen";
+	}
+
+
+
+
+
+
+// --------------- A R R A Y S --------------- //
+	var order = {
+		"type": "null",
+		"size": "null",
+		"toppings": "null",
+	};
+
+	var prices = {
+		"cheese": 13.5,
+		"pepperoni": 13.5,
+		"veggie": 14.2,
+		"hawaiian": 14.0,
+		"supreme": 14.5,
+		"meatlovers": 14.0,
+		"thin": 0.0,
+		"thick": 0.5,
+		"crispy": 1.0,
+		"anchovies": 0.3,
+		"parmesan": 1.3,
+		"olives": 0.4,
+	};
+
+	order.type = pizzaTypeValue;
+	order.size = pizzaSizeValue;
+	order.toppings = pizzaToppingsValue;
+
+
+
+
+
+
+// --------------- M O N E Y --------------- //
+
+	var placeholderPrice = document.getElementById('final-price');
+	var finalPrice = 0;
+	for (var keyPrice in prices) {
+		for (var key in order) {
+			if (key != "toppings") {
+				if (order[key] == keyPrice) {
+					finalPrice = finalPrice + prices[keyPrice];
+				};
+			} else {
+				for (i = 0; i < order.toppings.length; i++) {
+					if (order.toppings[i] == keyPrice) {
+						finalPrice = finalPrice + prices[keyPrice];
+					};
+				};
+			};
+		};
+	};
+	finalPrice = (finalPrice * currentNumberInt);
+	finalPrice = finalPrice.toFixed(1);
+	finalPrice = finalPrice.toString();
+	if (!(finalPrice.includes("."))) {
+		finalPrice = finalPrice + ".00";
+	} else {
+		finalPrice = finalPrice + "0";
+	};
+
+
+
+
+
+
+// --------------- P R E S E N T --------------- //
+
+	// Capitalize First letter of Toppings Array
+	for (i = 0; i < order.toppings.length; i++) {
+		order.toppings[i] = (" " + capitalizeFirstLetter(order.toppings[i]));
+	}
+	
+	// Print Order Infomation to Console
+	//console.log(order);
+	//console.log("Final Price = " + finalPrice);
+
+	// Update Final Price HTML Text
+	placeholderPrice.innerHTML = ("$" + finalPrice);
+
+	// Update Order HTML Text
+	var placeholderText = document.getElementById('order-placeholder-text');
+	var addressplaceholdertext = document.getElementById('address-placeholder-text');
+	var toppingsText = "";
+
+	if (pizzaToppingsValue.length) {
+		toppingsText = "<a style='font-size: 25px; color: #5E5E5E;'>" + "&#9;" + "&nbsp;&nbsp;&nbsp;&nbsp; &#8226; " + order.toppings + "<br/>";
+	};
+
+	placeholderText.innerHTML = (" " + currentNumberString + " " + capitalizeFirstLetter(order.type) + pizzaMultiple + "<br/>" 
+		+ "<a style='font-size: 25px; color: #5E5E5E;'>" + "&#9;" + "&nbsp;&nbsp;&nbsp;&nbsp; &#8226; " + capitalizeFirstLetter(order.size) + " base" + "<br/>" 
+		+ toppingsText
+		+ "</a>");
+
+	placeholderText.style.color = "#000000";
+
+	addressplaceholdertext.innerHTML = (nameValue + "<br/>" + "<a style='font-size: 25px; color: #5E5E5E;'>" + "&nbsp;&nbsp;&nbsp;&nbsp;" + addressValue + "<br/>" 
+		+ "&nbsp;&nbsp;&nbsp;&nbsp;" + timeValue + "</a>");
+	addressplaceholdertext.style.color = "#000000";
+
+};
+
+
+
+
+
+
+// --------------- E X T R A   F U N C T I O N S --------------- //
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+function extractContent(html) {
+
+    return new DOMParser().parseFromString(html, "text/html") . 
+        documentElement . textContent;
+
+};
+
+function hasLetters(string){    
+    var re = /([A-Z]|[a-z]|[0-9])/g;
+    if (re.test(string)) {
+       return true;
+    } else {
+       return false;
+    }   
+}
+
+// Search Function
+
+document.getElementById('search').onkeyup = () => {
+	var table = document.getElementById('table');
+  var searchBox = document.querySelector('input[name="table-search"]').value;
+  
+  // Hide all Rows
+  for (c = 1; c < table.rows.length; c++) {
+  	table.rows[c].style.display = "none";
+  }
+
+  // ISNT READING FIRST 2 VALUES FOR SOME REASON
+  
+  for (i = 0; i < table.rows.length; i++) {
+  	for (j = i; j < 7; j++) {
+  		var cell = table.rows[i].cells[j];
+  		var cellValue;
+  		if (!(cell == undefined)) {
+  			cellValue = cell.innerHTML;
+	  		var contains = cellValue.search(searchBox);
+	  		if (!(contains == -1)) {
+	  			table.rows[i].style.display = "table-row";
+	  		}
+  		}
+  	}
+  }
+}
+
+</script> 
+</html>
