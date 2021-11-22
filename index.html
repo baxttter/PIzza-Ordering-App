@@ -922,6 +922,7 @@ window.onload = function windowLoad() {
 }
 
 function addOrder() {
+	scroll(0, 9999);
 	var pizzaType = document.querySelector('input[name="pizza-radio"]:checked').value;
 	var pizzaSize = document.querySelector('input[name="pizza-size"]:checked').value;
 	var pizzaToppings = document.querySelectorAll('input[name="topping-radio"]:checked');
